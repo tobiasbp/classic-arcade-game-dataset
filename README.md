@@ -13,11 +13,22 @@ Not good. Should be mixed.
 
 # Supported games
 
-* depthcho: Depth Charge (older)  
+The dataset contains data for the following games (As named in MAME):
+* amidar
+* depthcho
+* digdug
+* dkong
+* frogger
+* galagao
+* invadrmr
+* missile1
+* pacman
+* qix
+* rallyx
 
 # Data
 
-# Raw data
+## Raw data
 The raw data consists of screendumps captured by MAME and sets of square, grayscale images
 of various sizes created with the Python script _scale_screndumps.py_. The images
 are stored in these directories:
