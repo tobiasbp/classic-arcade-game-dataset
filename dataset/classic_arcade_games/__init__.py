@@ -1,3 +1,3 @@
-"""classic_arcade_games_16x16 dataset."""
+"""classic_arcade_games dataset."""
 
-from .classic_arcade_games_16x16 import ClassicArcadeGames16x16
+from .classic_arcade_games import ClassicArcadeGames

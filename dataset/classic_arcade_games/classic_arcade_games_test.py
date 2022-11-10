@@ -4,9 +4,9 @@ import tensorflow_datasets as tfds
 from . import classic_arcade_games
 
 
-class ClassicArcadeGames16x16Test(tfds.testing.DatasetBuilderTestCase):
+class ClassicArcadeGames(tfds.testing.DatasetBuilderTestCase):
   """Tests for classic_arcade_games dataset."""
-  # TODO(classic_arcade_games_16x16):
+  # TODO(classic_arcade_games):
   DATASET_CLASS = classic_arcade_games.ClassicArcadeGames
   SPLITS = {
       'train': 3,  # Number of fake train example

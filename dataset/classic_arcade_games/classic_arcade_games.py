@@ -23,12 +23,26 @@ _CITATION = """
 }
 """
 
+_CLASS_LABELS = [
+  "amidar",
+  "depthcho",
+  "digdug",
+  "dkong",
+  "frogger",
+  "galagao",
+  "invadrmr",
+  "missile1",
+  "pacman",
+  "qix",
+  "rallyx",
+]
+
 @dataclass
 class MyDatasetConfig(tfds.core.BuilderConfig):
-  img_size: Tuple[int, int] = (16, 16)
+  img_size: Tuple[int, int] = (16, 16, 1)
 
 class ClassicArcadeGames(tfds.core.GeneratorBasedBuilder):
-  """DatasetBuilder for classic_arcade_games_16x16 dataset."""
+  """DatasetBuilder for classic_arcade_games dataset."""
 
   VERSION = tfds.core.Version('1.0.0')
   RELEASE_NOTES = {
@@ -36,9 +50,10 @@ class ClassicArcadeGames(tfds.core.GeneratorBasedBuilder):
   }
   BUILDER_CONFIGS = [
       # `name` (and optionally `description`) are required for each config
-      MyDatasetConfig(name='16x16', description='Small ...', img_size=(16, 16)),
-      MyDatasetConfig(name='32x32', description='Medium ...', img_size=(32, 32)),
-      MyDatasetConfig(name='64x64', description='Large ...', img_size=(64, 64)),
+      MyDatasetConfig(name='8x8', description='Mini ...', img_size=(8, 8, 1)),
+      MyDatasetConfig(name='16x16', description='Small ...', img_size=(16, 16, 1)),
+      MyDatasetConfig(name='32x32', description='Medium ...', img_size=(32, 32, 1)),
+      MyDatasetConfig(name='64x64', description='Large ...', img_size=(64, 64, 1)),
   ]
 
   def _info(self) -> tfds.core.DatasetInfo:
@@ -48,18 +63,14 @@ class ClassicArcadeGames(tfds.core.GeneratorBasedBuilder):
         builder=self,
         description=_DESCRIPTION,
         features=tfds.features.FeaturesDict({
-            # 16 x 16 images with 1 color channel
-            # shape=self.builder_config.img_size)
-            'image': tfds.features.Image(shape=self.builder_config.img_size + (1,)),
-            #'image': tfds.features.Image(shape=(16, 16, 1)),
-            # Get the labels from a file
-            'label': tfds.features.ClassLabel(names_file='label_names.txt'),
+            'image': tfds.features.Image(shape=self.builder_config.img_size),
+            'label': tfds.features.ClassLabel(names=_CLASS_LABELS),
         }),
         # If there's a common (input, target) tuple from the
         # features, specify them here. They'll be used if
         # `as_supervised=True` in `builder.as_dataset`.
-        #supervised_keys=('image', 'label'),  # Set to `None` to disable
-        supervised_keys=None,
+        supervised_keys=('image', 'label'),  # Set to `None` to disable
+        #supervised_keys=None,
         homepage='https://github.com/tobiasbp/classic-arcade-game-dataset/',
         citation=_CITATION,
     )
