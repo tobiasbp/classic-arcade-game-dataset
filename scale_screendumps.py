@@ -57,6 +57,7 @@ def convert_screendumps(source_dir: Path, destination_dir, size: int, color = cv
         shutil.rmtree(destination_dir)
 
 # Create square gray scale images from screendumps
+convert_screendumps(Path("data/mame/original"), Path("data/mame/8x8"), 8)
 convert_screendumps(Path("data/mame/original"), Path("data/mame/16x16"), 16)
 convert_screendumps(Path("data/mame/original"), Path("data/mame/32x32"), 32)
 convert_screendumps(Path("data/mame/original"), Path("data/mame/64x64"), 64)
