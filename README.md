@@ -50,7 +50,8 @@ as well as [this Terraform tutorial](https://www.tensorflow.org/tutorials/keras/
 # Performance
 Results for the variations of the dataset with 50% of the data used for training and the other 50% used for testing. 
 
-![Performance: 5 epochs](./figures/acc_loss_5_epochs.png)
+![Performance: 5 epochs](./figures/accuracy_5_epochs.png)
+![Performance: 2 epochs](./figures/accuracy_2_epochs.png)
 
 # Data
 The data in this dataset has been collected by running MAME and manually
