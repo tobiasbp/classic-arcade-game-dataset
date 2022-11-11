@@ -8,53 +8,107 @@ import matplotlib.pyplot as plt
 
 from dataset import classic_arcade_games
 
+epochs = 5
+
 datasets = [
     "classic_arcade_games/8x8",
     "classic_arcade_games/16x16",
     "classic_arcade_games/32x32",
     "classic_arcade_games/64x64",
 ]
-dataset_no = 1
+
+labels = [
+  "amidar",
+  "depthcho",
+  "digdug",
+  "dkong",
+  "frogger",
+  "galagao",
+  "invadrmr",
+  "missile1",
+  "pacman",
+  "qix",
+  "rallyx",
+]
 
 print(tf.__version__)
 
-# Load the data. Split into training and test data. (PrefetchDataset)
-#(ds_train, ds_test) , ds_info = tfds.load(
-(train_images, train_labels), (test_images, test_labels) = tfds.load(
-    datasets[dataset_no],
-    split=['train[:80%]', 'train[80%:]'],
-    #with_info=True,
-    # Get a tuple (features, label)
-    as_supervised=True,
-    # Load all of the data
-    batch_size=-1
-    )
-
-#train_images = np.reshape(train_images, (1, 16, 16))
-
-print(train_images.shape)
-print("No of labels:", len(train_labels))
+# Add results in this array so we can create a plot.
+results = []
 
 
-# Normalize data
-train_images = tf.cast(train_images, tf.float32) / 255.0
-test_images = tf.cast(test_images, tf.float32) / 255.0
+# importing the required module
+import matplotlib.pyplot as plt
+  
+for dataset_no in range(len(datasets)):
+    r = {"dataset": datasets[dataset_no]}
 
-model = tf.keras.Sequential([
-    tf.keras.layers.Flatten(input_shape=(16, 16 )),
-    tf.keras.layers.Dense(128, activation='relu'),
-    tf.keras.layers.Dense(11)
-])
+    # Load the data. Split into training and test data. (PrefetchDataset)
+    #(ds_train, ds_test) , ds_info = tfds.load(
+    (train_images, train_labels), (test_images, test_labels) = tfds.load(
+        datasets[dataset_no],
+        split=['train[:50%]', 'train[50%:]'],
+        #with_info=True,
+        # Get a tuple (features, label)
+        as_supervised=True,
+        # Load all of the data
+        batch_size=-1
+        )
 
-model.compile(optimizer='adam',
-              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-              metrics=['accuracy'])
+    print("Shape of training images:", train_images.shape[1:3])
 
-model.fit(train_images, train_labels, epochs=10)
 
-test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
+    # Normalize data to values between 0.0 and 1.0
+    train_images = tf.cast(train_images, tf.float32) / 255.0
+    test_images = tf.cast(test_images, tf.float32) / 255.0
 
-print('\nTest accuracy:', test_acc)
+    image_dimensions = train_images.shape[1:3]
+
+    model = tf.keras.Sequential([
+        tf.keras.layers.Flatten(input_shape=image_dimensions),
+        tf.keras.layers.Dense(128, activation='relu'),
+        tf.keras.layers.Dense(len(labels))
+    ])
+
+    model.compile(optimizer='adam',
+        loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+        metrics=['accuracy'])
+
+    # Fit the model to the training data
+    fit = model.fit(train_images, train_labels, epochs=epochs)
+    
+    #plotter = tfdocs.plots.HistoryPlotter(metric = 'loss', smoothing_std=10)
+    #plotter.plot(fit)
+    #plt.ylim([0.5, 0.7])
+
+    r["test_loss"], r["test_acc"] = model.evaluate(test_images,  test_labels, verbose=2)
+
+    print(f'\nTest accuracy ({datasets[dataset_no]}):', r["test_acc"])
+
+    results.append(r)
+
+
+print(results)
+
+gridnumber = range(1,len(results)+1)
+
+b1 = plt.bar(gridnumber, [ r["test_acc"] * 100 for r in results ], width=0.4,
+                label="Accuracy", align="center")
+
+b2 = plt.bar(gridnumber, [ r["test_loss"] * 100 for r in results ], color="red", width=0.4,
+                label="Loss", align="center")
+
+plt.title(f'No of epochs: {epochs}')
+#plt.set_xlabel('xlabel')
+#ax.set_ylabel('ylabel')
+
+plt.ylim([0,100.0])
+plt.xlim([0,len(results)+1])
+plt.xticks(gridnumber,( r["dataset"].split("/")[-1] for r in results ))
+#plt.xticks(gridnumber)
+plt.legend()
+plt.show()
+
 
 exit(0)
 print(type(ds_train))
