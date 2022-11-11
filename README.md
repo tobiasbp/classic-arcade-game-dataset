@@ -46,12 +46,6 @@ from dataset import classic_arcade_games
 For a full example, take a look at _dataset_demo.py_ in this repository,
 as well as [this Terraform tutorial](https://www.tensorflow.org/tutorials/keras/classification).
 
-# Performance
-Results for the variations of the dataset with 50% of the data used for training and the other 50% used for testing. 
-
-![Performance: 5 epochs](./figures/accuracy_5_epochs.png)
-![Performance: 2 epochs](./figures/accuracy_2_epochs.png)
-
 # Data
 The data in this dataset has been collected by running MAME and manually
 creating screendumps from the chosen sequenze in the game.
@@ -81,3 +75,11 @@ Examples of what the squared screendumps look like.
 ![Grayscale: 16x16](./figures/16x16_5x5_01.png)
 ![Grayscale: 32x32](./figures/32x32_5x5_01.png)
 ![Grayscale: 64x64](./figures/64x64_5x5_01.png)
+
+# Performance
+Results for the variations of the dataset with 50% of the data used for training and the other 50% used for testing. 
+
+
+![](./figures/acc_loss_2_epochs.png)
+![](./figures/acc_loss_5_epochs.png)
+![](./figures/acc_loss_10_epochs.png)
