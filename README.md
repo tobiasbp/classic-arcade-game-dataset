@@ -1,7 +1,9 @@
 # classic-arcade-game-dataset
-A TensorFlow dataset for identifying classic arcade games from sequenses of screendumps.
+A TensorFlow dataset for identifying classic arcade games from sequenzes of screendumps.
 All screendumps for a game are, typically, from the games attract mode.
 The sequence could also be from the game being played, if the game only has a single stage/level.
+That is, what is trying to recognize, are 
+
 The games are identified using the name of the game's MAME ROM set.
 
 The datasets are built with the [TFDS CLI](https://www.tensorflow.org/datasets/cli).
@@ -42,7 +44,7 @@ are stored in these directories:
 * _data/mame/64x64.zip_
 
 
-![Grayscale: 8x8](./figures/8x8_5x5.png)
-![Grayscale: 16x16](./figures/16x16_5x5.png)
-![Grayscale: 32x32](./figures/32x32_5x5.png)
-![Grayscale: 64x64](./figures/64x64_5x5.png)
+![Grayscale: 8x8](./figures/8x8_5x5_01.png)
+![Grayscale: 16x16](./figures/16x16_5x5_01.png)
+![Grayscale: 32x32](./figures/32x32_5x5_01.png)
+![Grayscale: 64x64](./figures/64x64_5x5_01.png)
