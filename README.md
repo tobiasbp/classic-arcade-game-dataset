@@ -6,9 +6,8 @@ That is, what is trying to recognize, are
 
 The games are identified using the name of the game's MAME ROM set.
 
-The datasets are built with the [TFDS CLI](https://www.tensorflow.org/datasets/cli).
-
-https://www.tensorflow.org/datasets/add_dataset
+The dataset is available as archive files or as a [TensorFlow dataset](https://www.tensorflow.org/datasets)
+built with the [TFDS CLI](https://www.tensorflow.org/datasets/cli).
 
 last part of sequence is used for testing, and first par for training.
 Not good. Should be mixed.
